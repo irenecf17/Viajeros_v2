@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="local.hurtado.viajeros.Camboya"
+    android:background="@drawable/fondoapp">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:background="@drawable/bordetxt"
+        android:fontFamily="casual"
+        android:text="  CAMBOYA  "
+        android:textColor="@color/negro"
+        android:textSize="40dp"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:id="@+id/txt_titulo_camboya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:textSize="30dp"
+        android:text="titulo"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/negro"/>
+
+    <TextView
+        android:id="@+id/txt_contenido_camboya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:textSize="12dp"
+        android:textColor="@color/negro"
+        android:text="contenido"
+        android:layout_below="@+id/txt_titulo_camboya"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
+</RelativeLayout>

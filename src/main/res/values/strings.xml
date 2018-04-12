@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Viajeros 2.0</string>
+    <string name="facebook_app_id">588361878166419</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

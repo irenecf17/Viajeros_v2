@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="local.hurtado.viajeros.MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/banner2"
+        android:layout_marginTop="36dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/edt_usuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:text="E-mail"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
+
+
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:text="Password"
+        android:layout_below="@+id/edt_usuario"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+
+
+    <Button
+        android:id="@+id/btt_entrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOG IN"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/edt_password"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginStart="22dp" />
+
+    <Button
+        android:id="@+id/btt_logCreado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENTRAR"
+        android:layout_above="@+id/login_bttFacebook"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_marginEnd="28dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btt_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/login_bttFacebook"
+        android:layout_centerHorizontal="true">
+    </com.google.android.gms.common.SignInButton>
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_bttFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/btt_entrar"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
