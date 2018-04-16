@@ -1,14 +1,9 @@
 package local.hurtado.viajeros;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,66 +11,33 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class viewpager_contenido extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private ViewPager mPager;
-    int pos;
+public class navigation_drawer extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pos = 0;
-        //setContentView(R.layout.activity_viewpager_contenido);
         setContentView(R.layout.activity_navigation_drawer);
-        mPager = (ViewPager) findViewById(R.id.pager);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        FragmentManager fm = getSupportFragmentManager();
-
-        mPager.setAdapter(new FragmentStatePagerAdapter(fm) {
-            @Override
-            public Fragment getItem(int position) {
-                return Camboya.newInstance(position);
-            }
-
-            @Override
-            public int getCount() {
-                return 5;
-            }
-        });
-
-        mPager.setCurrentItem(pos);
-
     }
 
     @Override
     public void onBackPressed() {
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (mPager.getCurrentItem() == 0) {
-                super.onBackPressed();
-            } else {
-                mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-            }
-
+            super.onBackPressed();
         }
     }
 

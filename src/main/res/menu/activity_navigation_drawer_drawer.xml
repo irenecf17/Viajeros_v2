@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_informacion"
+            android:icon="@drawable/information"
+            android:title="Información del país" />
+        <item
+            android:id="@+id/nav_foro"
+            android:icon="@drawable/forum"
+            android:title="Foro" />
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/wechat"
+            android:title="Chat" />
+
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_ajustes"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Ajustes" />
+
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Compartir" />
+            <item
+                android:id="@+id/nav_singout"
+                android:icon="@drawable/close_circle"
+                android:title="Desconectar" />
+        </menu>
+    </item>
+
+</menu>
