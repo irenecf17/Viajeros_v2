@@ -1,9 +1,11 @@
 package local.hurtado.viajeros;
 
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -24,6 +26,9 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
 
     private ViewPager mPager;
     int pos;
+    private TabLayout tabLayout;
+    private String[] pageTitle = {"Fragment 1", "Fragment 2", "Fragment 3", "Fragment 4","Fragment 5"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +41,21 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //final ActionBar actionBar = getActionBar();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        for (int i = 0; i < 5; i++) {
+            tabLayout.addTab(tabLayout.newTab().setText(pageTitle[i]));
+        }
+
+        //set gravity for tab bar
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -52,10 +67,29 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
             public Fragment getItem(int position) {
                 return Camboya.newInstance(position);
             }
-
             @Override
             public int getCount() {
                 return 5;
+            }
+        });
+
+        mPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        //change ViewPager page when tab selected
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 

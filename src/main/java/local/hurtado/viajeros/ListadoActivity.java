@@ -32,12 +32,10 @@ public class ListadoActivity extends Fragment {
         camboya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), viewpager_contenido.class);
+                Intent intent = new Intent(getContext(), Viewpager_Tabs.class);
                 startActivity(intent);
             }
         });
-
-
 
         return v;
     }

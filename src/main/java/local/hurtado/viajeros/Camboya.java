@@ -35,9 +35,7 @@ public class Camboya extends Fragment {
         View v = inflater.inflate(R.layout.fragment_camboya, container, false);
         titulo_pantalla = (TextView) v.findViewById(R.id.txt_titulo_camboya);
         contenido_pantalla = (TextView) v.findViewById(R.id.txt_contenido_camboya);
-
         Log.i("SINGLETON", SingletonContenido.get(getContext()).getmContenido(getContext()).toString());
-
         tituloPantalla = SingletonContenido.get(getContext()).getmContenido(getContext()).get(posicion).getTitulo();
         contenidoPantalla = SingletonContenido.get(getContext()).getmContenido(getContext()).get(posicion).getTexto();
         titulo_pantalla.setText(""+tituloPantalla);
