@@ -15,6 +15,11 @@
             android:icon="@drawable/wechat"
             android:title="Chat" />
 
+        <item
+            android:id="@+id/nav_return"
+            android:icon="@drawable/arrowleft"
+            android:title="Volver al menú de paises" />
+
     </group>
 
     <item android:title="">

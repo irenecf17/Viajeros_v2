@@ -1,7 +1,6 @@
 package local.hurtado.viajeros;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +29,7 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
     int pos;
     private TabLayout tabLayout;
     private String[] pageTitle = {"Fragment 1", "Fragment 2", "Fragment 3", "Fragment 4","Fragment 5"};
-
+    private FirebaseAuth AuthUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,10 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        for (int i = 0; i < 5; i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(pageTitle[i]));
-        }
+        //tabLayout = (TabLayout) findViewById(R.id.tab);
+        //for (int i = 0; i < 5; i++) {
+        //    tabLayout.addTab(tabLayout.newTab().setText(pageTitle[i]));
+        //}
 
         //set gravity for tab bar
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -147,13 +148,19 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
         } else if (id == R.id.nav_foro) {
 
         } else if (id == R.id.nav_chat) {
+            Intent intent = new Intent(getApplicationContext(), Chat.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_return) {
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment fragment_listado = new ListadoActivity();
+            fm.beginTransaction().replace(R.id.contenedor, fragment_listado).commit();
 
         } else if (id == R.id.nav_ajustes) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_singout) {
-
+            AuthUI.getInstance().signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
