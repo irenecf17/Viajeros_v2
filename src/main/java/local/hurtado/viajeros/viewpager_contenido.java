@@ -16,12 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * NO SIRVE!!!!
+ *
  */
 public class viewpager_contenido extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,7 +38,7 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         pos = 0;
         //setContentView(R.layout.activity_viewpager_contenido);
-        setContentView(R.layout.activity_navigation_drawer);
+        setContentView(R.layout.activity_viewpager__tabs);
         mPager = (ViewPager) findViewById(R.id.pager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -143,14 +145,17 @@ public class viewpager_contenido extends AppCompatActivity implements Navigation
         int id = item.getItemId();
 
         if (id == R.id.nav_informacion) {
+            Toast.makeText(getApplicationContext(), "Botón Info" ,Toast.LENGTH_SHORT);
             Intent intent = new Intent(getApplicationContext(), viewpager_contenido.class);
             startActivity(intent);
         } else if (id == R.id.nav_foro) {
 
         } else if (id == R.id.nav_chat) {
+            Toast.makeText(getApplicationContext(), "Botón Chat" ,Toast.LENGTH_SHORT);
             Intent intent = new Intent(getApplicationContext(), Chat.class);
             startActivity(intent);
         } else if (id == R.id.nav_return) {
+            Toast.makeText(getApplicationContext(), "Botón Volver" ,Toast.LENGTH_SHORT);
             FragmentManager fm = getSupportFragmentManager();
             Fragment fragment_listado = new ListadoActivity();
             fm.beginTransaction().replace(R.id.contenedor, fragment_listado).commit();

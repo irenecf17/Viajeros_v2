@@ -1,85 +1,212 @@
 package local.hurtado.viajeros;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class Chat extends AppCompatActivity {
-    private FirebaseListAdapter<ChatMessage> adapter;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.util.UUID;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class Chat extends AppCompatActivity  {
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    DatabaseReference databaseReference = database.getReference( "message" );
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReferenceFromUrl( "gs://viajeros-94d67.appspot.com" );
+
+    @Bind( R.id.messages_layout )
+    View messagesLayout;
+
+    @Bind( R.id.message )
+    EditText message;
+
+    @Bind( R.id.sender )
+    EditText sender;
+
+    @Bind( R.id.recycler_view )
+    RecyclerView recyclerView;
+
+    private MessagesAdapter messagesAdapter;
+
+    private final ChildEventListener messagesListener = new ChildEventListener()
+    {
+
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s )
+        {
+            updateMessage( dataSnapshot );
+        }
+
+        @Override
+        public void onChildChanged(DataSnapshot dataSnapshot, String s )
+        {
+            updateMessage( dataSnapshot );
+        }
+
+        @Override
+        public void onChildRemoved( DataSnapshot dataSnapshot )
+        {
+            Message message = dataSnapshot.getValue( Message.class );
+            if ( message != null )
+            {
+                messagesAdapter.removeMessage( message );
+            }
+        }
+
+        @Override
+        public void onChildMoved(DataSnapshot dataSnapshot, String s )
+        {
+        }
+
+        @Override
+        public void onCancelled( DatabaseError databaseError )
+        {
+        }
+    };
+
+    private void updateMessage( DataSnapshot dataSnapshot ) {
+        final Message message = dataSnapshot.getValue(Message.class);
+        if (message != null) {
+            runOnUiThread( new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    messagesAdapter.addMessage( message );
+                }
+            } );
+        }
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-
-        Toast.makeText(this,
-                "Welcome " + FirebaseAuth.getInstance()
-                        .getCurrentUser()
-                        .getDisplayName(),
-                Toast.LENGTH_LONG)
-                .show();
-
-        // Load chat room contents
-        displayChatMessages();
-
-        FloatingActionButton fab =
-                (FloatingActionButton)findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditText input = (EditText)findViewById(R.id.input);
-
-                // Read the input field and push a new instance
-                // of ChatMessage to the Firebase database
-                FirebaseDatabase.getInstance()
-                        .getReference()
-                        .push()
-                        .setValue(new ChatMessage(input.getText().toString(),
-                                FirebaseAuth.getInstance()
-                                        .getCurrentUser()
-                                        .getDisplayName())
-                        );
-
-                // Clear the input
-                input.setText("");
-            }
-        });
-
-        ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
-
-        adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-                // Get references to the views of message.xml
-                TextView messageText = (TextView)v.findViewById(R.id.message_text);
-                TextView messageUser = (TextView)v.findViewById(R.id.message_user);
-                TextView messageTime = (TextView)v.findViewById(R.id.message_time);
-
-                // Set their text
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
-
-                // Format the date before showing it
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-                        model.getMessageTime()));
-            }
-        };
-
-        listOfMessages.setAdapter(adapter);
+    protected void onCreate( Bundle savedInstanceState )
+    {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_chat );
+        ButterKnife.bind( this );
+        Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
+        setSupportActionBar( toolbar );
+        messagesAdapter = new MessagesAdapter( this );
+        configureRecyclerView();
+        databaseReference.addChildEventListener( messagesListener );
     }
 
-    private void displayChatMessages() {
-
+    private void configureRecyclerView() {
+        recyclerView.setHasFixedSize( true );
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( this );
+        linearLayoutManager.setReverseLayout( true );
+        recyclerView.setLayoutManager( linearLayoutManager );
+        recyclerView.setAdapter( messagesAdapter );
     }
+
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu ) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate( R.menu.menu_main, menu );
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected( MenuItem item ) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if ( id == R.id.action_logout ) {
+            firebaseAuth.signOut();
+            startActivity( new Intent( this, Login.class ) );
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected( item );
+    }
+
+    public void onSendClicked( View view ) {
+        String text = message.getText().toString();
+        message.setText( null );
+        String messageSender = sender.getText().toString();
+        Message message = new Message( messageSender, text );
+        databaseReference.push().setValue( message );
+    }
+
+    @OnClick( R.id.add_picture )
+    public void onAddImageClicked() {
+        dispatchTakePictureIntent();
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
+        if ( takePictureIntent.resolveActivity( getPackageManager() ) != null ) {
+            startActivityForResult( takePictureIntent, REQUEST_IMAGE_CAPTURE );
+        }
+    }
+
+    @Override
+    protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
+        if ( requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK ) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get( "data" );
+            UploadPostTask uploadPostTask = new UploadPostTask();
+            uploadPostTask.execute( imageBitmap );
+        }
+    }
+
+    @SuppressWarnings( "VisibleForTests" )
+    private class UploadPostTask extends AsyncTask<Bitmap, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Bitmap... params ) {
+            Bitmap bitmap = params[0];
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress( Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream );
+            storageRef.child( UUID.randomUUID().toString() + "jpg" ).putBytes(
+                byteArrayOutputStream.toByteArray() ).addOnSuccessListener(
+                new OnSuccessListener<UploadTask.TaskSnapshot>()
+                {
+                    @Override
+                    public void onSuccess( UploadTask.TaskSnapshot taskSnapshot )
+                    {
+                        if ( taskSnapshot.getDownloadUrl() != null ) {
+                            String imageUrl = taskSnapshot.getDownloadUrl().toString();
+                            final Message message = new Message( imageUrl );
+                            databaseReference.push().setValue( message );
+                        }
+                    }
+                } );
+
+            return null;
+        }
+    }
+
+
 }

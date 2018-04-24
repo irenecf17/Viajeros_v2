@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class Viewpager_Tabs extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ViewPager mPager;
@@ -108,11 +109,21 @@ public class Viewpager_Tabs extends AppCompatActivity implements NavigationView.
         int id = item.getItemId();
 
         if (id == R.id.nav_informacion) {
+            Toast.makeText(getApplicationContext(), "Botón Info" ,Toast.LENGTH_SHORT);
             Intent intent = new Intent(getApplicationContext(), Viewpager_Tabs.class);
             startActivity(intent);
         } else if (id == R.id.nav_foro) {
 
         } else if (id == R.id.nav_chat) {
+            Toast.makeText(getApplicationContext(), "Botón Chat", Toast.LENGTH_SHORT);
+            Intent intent = new Intent(getApplicationContext(), Chat.class);
+            startActivity(intent);
+
+        }else if (id == R.id.nav_return) {
+            Toast.makeText(getApplicationContext(), "Botón Volver" ,Toast.LENGTH_SHORT);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_ajustes) {
 
