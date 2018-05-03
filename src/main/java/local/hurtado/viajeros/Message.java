@@ -2,6 +2,7 @@ package local.hurtado.viajeros;
 
 public class Message {
 
+    String id;
     String sender;
     String text;
     String imageUrl;
@@ -10,12 +11,21 @@ public class Message {
     public Message() {
     }
 
-    public Message(String sender, String text )    {
+    public Message(String id, String sender, String text )    {
+        this.id = id;
         this.sender = sender;
         this.text = text;
     }
 
-    public Message( String imageUrl )
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Message(String imageUrl )
     {
         this.imageUrl = imageUrl;
     }

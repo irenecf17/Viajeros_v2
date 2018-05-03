@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,20 +60,17 @@ public class Chat extends AppCompatActivity  {
     {
 
         @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s )
-        {
+        public void onChildAdded(DataSnapshot dataSnapshot, String s ) {
             updateMessage( dataSnapshot );
         }
 
         @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s )
-        {
+        public void onChildChanged(DataSnapshot dataSnapshot, String s ) {
             updateMessage( dataSnapshot );
         }
 
         @Override
-        public void onChildRemoved( DataSnapshot dataSnapshot )
-        {
+        public void onChildRemoved( DataSnapshot dataSnapshot ) {
             Message message = dataSnapshot.getValue( Message.class );
             if ( message != null )
             {
@@ -81,13 +79,11 @@ public class Chat extends AppCompatActivity  {
         }
 
         @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s )
-        {
+        public void onChildMoved(DataSnapshot dataSnapshot, String s ) {
         }
 
         @Override
-        public void onCancelled( DatabaseError databaseError )
-        {
+        public void onCancelled( DatabaseError databaseError ) {
         }
     };
 
@@ -106,8 +102,7 @@ public class Chat extends AppCompatActivity  {
     }
 
     @Override
-    protected void onCreate( Bundle savedInstanceState )
-    {
+    protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_chat );
         ButterKnife.bind( this );
@@ -155,7 +150,9 @@ public class Chat extends AppCompatActivity  {
         String text = message.getText().toString();
         message.setText( null );
         String messageSender = sender.getText().toString();
-        Message message = new Message( messageSender, text );
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String messageSender2 = user.toString();
+        Message message = new Message(messageSender2, messageSender, text );
         databaseReference.push().setValue( message );
     }
 
