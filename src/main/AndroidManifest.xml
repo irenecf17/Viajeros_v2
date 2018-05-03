@@ -3,6 +3,19 @@
     package="local.hurtado.viajeros">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- For Map -->
+
+    <permission android:name="com.androidmorefast.pc.appmostrardireccionmapa.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.androidmorefast.pc.appmostrardireccionmapa.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
 
     <application
         android:allowBackup="true"
@@ -30,6 +43,7 @@
             android:name=".navigation_drawer"
             android:label="@string/title_activity_navigation_drawer" />
         <activity android:name=".Viewpager_Tabs" />
+        <activity android:name=".ObtenerCoordenadas"></activity>
     </application>
 
 </manifest>
