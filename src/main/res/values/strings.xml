@@ -24,5 +24,7 @@
     <string name="send_message">Enviar mensaje</string>
     <string name="btn_detener_actualizaciones">Detener actualizaciones</string>
     <string name="btn_actualizacion_ubicacion">Actualizar ubicación</string>
+    <string name="mensaje_chat1">Para acceder al chat, debes estar en el propio país.</string>
+    <string name="mensaje_chat2">Es correcto?</string>
 
 </resources>

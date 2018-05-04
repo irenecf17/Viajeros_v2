@@ -11,6 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+
+/**
+ * NO SIRVE!! SOLO COMO EJEMPLO PARA EL NAVIGATION DRAWER!!!!!
+ */
+
+
+
 public class navigation_drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

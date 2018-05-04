@@ -1,6 +1,9 @@
 package local.hurtado.viajeros;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -31,7 +34,7 @@ public class ObtenerCoordenadas extends Activity implements GoogleApiClient.Conn
 
     private static final String TAG = ObtenerCoordenadas.class.getSimpleName();
     private TextView lat, lng, direccion;
-    private Button obtenerUbicacion;
+    private Button obtenerUbicacion, ubiSi, ubiNo;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
@@ -47,6 +50,8 @@ public class ObtenerCoordenadas extends Activity implements GoogleApiClient.Conn
         setContentView(R.layout.activity_obtener_coordenadas);
 
         obtenerUbicacion = (Button) findViewById(R.id.btnAtualizarUbicacion);
+        ubiSi = (Button) findViewById(R.id.button3);
+        ubiNo = (Button) findViewById(R.id.button5);
         lat = (TextView) findViewById(R.id.txtLatitude);
         lng = (TextView) findViewById(R.id.txtLongitude);
         direccion = (TextView) findViewById(R.id.txtDireccion);
@@ -136,9 +141,45 @@ public class ObtenerCoordenadas extends Activity implements GoogleApiClient.Conn
 
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> list = geocoder.getFromLocation(latitude, longitude, 1);
+
             if (!list.isEmpty()) {
                 Address address = list.get(0);
-                direccion.setText(address.getAddressLine(0));
+                String direccionCompleta = address.getAddressLine(0);
+                String countryName = address.getCountryName();
+                final String codeCountry = address.getCountryCode();
+                Log.i("Dirección completa:", address.getAddressLine(0));
+                Log.i("Country Name:", address.getCountryName());
+                Log.i("Country Code:", address.getCountryCode());
+                direccion.setText(countryName);
+
+
+                ubiSi.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        /**
+                         * IMPORTANTE!! CAMBIAR EL ES POR EL CÓDIGO DEL PAÍS INDICADO!
+                         * Se utiliza el ES para poder comprovar que funciona.
+                         */
+
+                        if (codeCountry.equals("ES")) {
+                            Intent intent = new Intent(getApplicationContext(), Chat.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No estás en el país. No es posible acceder al chat.", Toast.LENGTH_SHORT);
+                            Intent intent = new Intent(getApplicationContext(), Viewpager_Tabs.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+                ubiNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertaDialog();
+                    }
+                });
+
 
             } else {
                 lat.setText("0.0");
@@ -264,5 +305,17 @@ public class ObtenerCoordenadas extends Activity implements GoogleApiClient.Conn
         Log.i(TAG, "Conexion fallida: " + connectionResult.getErrorCode());
     }
 
+    public void alertaDialog() {
+
+        new AlertDialog.Builder(ObtenerCoordenadas.this)
+                .setTitle("Ubicación")
+                .setMessage("Pulsa el botón actualizar ubicación para poder cambiar la localización actual.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.cancel();
+                    }
+                }).show();
+    }
 
 }
