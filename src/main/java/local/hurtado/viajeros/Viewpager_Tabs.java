@@ -17,19 +17,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Viewpager_Tabs extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ViewPager mPager;
     private String[] pageTitle = {"Información", "Clima", "Moneda", "Religion","Transporte"};
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpager__tabs);
+        //getSupportActionBar().hide();
+        //getActionBar().hide();
         mPager = (ViewPager) findViewById(R.id.pager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //final ActionBar actionBar = getActionBar();
+        //actionBar.hide();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -130,7 +136,10 @@ public class Viewpager_Tabs extends AppCompatActivity implements NavigationView.
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_singout) {
-
+            firebaseAuth.signOut();
+            startActivity( new Intent( this, Login.class ) );
+            finish();
+            return true;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
