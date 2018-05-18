@@ -35,7 +35,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 
-public class Login extends AppCompatActivity {SignInButton loguin_btt;
+public class Login extends AppCompatActivity {
+    SignInButton loguin_btt;
     private static final int RC_SIGN_IN = 1;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "MAINACTIVITY";

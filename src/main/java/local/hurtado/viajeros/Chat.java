@@ -38,7 +38,7 @@ public class Chat extends AppCompatActivity  {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    DatabaseReference databaseReference = database.getReference( "message" );
+    DatabaseReference databaseReference = database.getReference("message");
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl( "gs://viajeros-94d67.appspot.com" );
 
@@ -110,6 +110,9 @@ public class Chat extends AppCompatActivity  {
         setSupportActionBar( toolbar );
         messagesAdapter = new MessagesAdapter( this );
         configureRecyclerView();
+        Bundle datos = this.getIntent().getExtras();
+        String ref = datos.getString("REFERENCIA","message");
+        databaseReference = database.getReference(ref);
         databaseReference.addChildEventListener( messagesListener );
     }
 

@@ -164,6 +164,7 @@ public class ObtenerCoordenadas extends Activity implements GoogleApiClient.Conn
 
                         if (codeCountry.equals("ES")) {
                             Intent intent = new Intent(getApplicationContext(), Chat.class);
+                            intent.putExtra("REFERENCIA", "message");
                             startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(), "No estás en el país. No es posible acceder al chat.", Toast.LENGTH_SHORT);

@@ -119,7 +119,9 @@ public class Viewpager_Tabs extends AppCompatActivity implements NavigationView.
             Intent intent = new Intent(getApplicationContext(), Viewpager_Tabs.class);
             startActivity(intent);
         } else if (id == R.id.nav_foro) {
-
+            Toast.makeText(getApplicationContext(), "Botón Foro", Toast.LENGTH_SHORT);
+            Intent intent = new Intent(getApplicationContext(), ForoActivyPasoIntermedio.class);
+            startActivity(intent);
         } else if (id == R.id.nav_chat) {
             Toast.makeText(getApplicationContext(), "Botón Chat", Toast.LENGTH_SHORT);
             Intent intent = new Intent(getApplicationContext(), ObtenerCoordenadas.class);

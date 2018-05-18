@@ -1,6 +1,5 @@
 package local.hurtado.viajeros;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -78,8 +77,8 @@ public class navigation_drawer extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_informacion) {
-            Intent intent = new Intent(getApplicationContext(), viewpager_contenido.class);
-            startActivity(intent);
+            //Intent intent = new Intent(getApplicationContext(), viewpager_contenido.class);
+            //startActivity(intent);
         } else if (id == R.id.nav_foro) {
 
         } else if (id == R.id.nav_chat) {

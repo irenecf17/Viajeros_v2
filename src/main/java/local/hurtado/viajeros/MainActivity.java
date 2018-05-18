@@ -8,7 +8,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -108,6 +115,35 @@ public class MainActivity extends AppCompatActivity {
 
             mDatabase.addValueEventListener(listener);
             */
+            mDatabase = FirebaseDatabase.getInstance().getReference("/foro/0");
+
+            ValueEventListener listener = new ValueEventListener() {
+                String TAG;
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    GenericTypeIndicator<List<MensajeForo>> p = new GenericTypeIndicator <List<MensajeForo>>() {};
+                    List<MensajeForo> foro_camboya =  dataSnapshot.getValue(p);
+
+                    for (int i = 1; i < foro_camboya.size(); i++) {
+                        MensajeForo contenidoTitulo = new MensajeForo(foro_camboya.get(i).getId(), foro_camboya.get(i).getTitulo());
+                        ListaMensajeForo.get(getApplicationContext()).addMensaje(contenidoTitulo);
+                    }
+
+
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                }
+            };
+
+
+
+            mDatabase.addValueEventListener(listener);
+
+
+
 
 
             Fragment fragment = new ListadoActivity();

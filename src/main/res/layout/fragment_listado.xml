@@ -3,135 +3,172 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="local.hurtado.viajeros.ListadoActivity"
     android:background="@drawable/fondoapp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
-        android:fontFamily="casual"
-        android:text="¿Dónde quieres viajar?"
-        android:textColor="@color/negro"
-        android:textSize="30dp"
-        android:id="@+id/textView2" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/btt_camboya"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/redcamboya"
-        android:layout_marginTop="19dp"
-        android:layout_marginStart="12dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/btt_vietnam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/redvietnam"
-        android:layout_alignTop="@+id/btt_camboya"
-        android:layout_alignEnd="@+id/textView2" />
+            <ImageView
+                android:id="@+id/btt_camboya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView2"
+                android:layout_below="@+id/textView2"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/redcamboya" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="India"
-        android:fontFamily="casual"
-        android:id="@+id/textView3"
-        android:textColor="@color/negro"
-        android:layout_alignBaseline="@+id/textView6"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignEnd="@+id/textView4"
-        android:layout_marginEnd="11dp" />
+            <ImageView
+                android:id="@+id/btt_tailandia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btt_camboya"
+                android:layout_below="@+id/textView5"
+                android:layout_marginTop="33dp"
+                android:src="@drawable/redthai" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="Tailandia"
-        android:textColor="@color/negro"
-        android:layout_below="@+id/btt_tailandia"
-        android:layout_alignStart="@+id/textView5" />
+            <ImageView
+                android:id="@+id/btt_srilanka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btt_india"
+                android:layout_alignTop="@+id/btt_maldivas"
+                android:src="@drawable/redsrilanka" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="Camboya"
-        android:textColor="@color/negro"
-        android:layout_marginStart="32dp"
-        android:layout_below="@+id/btt_camboya"
-        android:layout_alignStart="@+id/btt_camboya" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textView5"
+                android:layout_below="@+id/btt_maldivas"
+                android:fontFamily="casual"
+                android:text="Maldivas"
+                android:textColor="@color/negro" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vietnam"
-        android:fontFamily="casual"
-        android:id="@+id/textView4"
-        android:textColor="@color/negro"
-        android:layout_marginEnd="31dp"
-        android:layout_alignEnd="@+id/btt_vietnam"
-        android:layout_below="@+id/btt_vietnam" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btt_camboya"
+                android:layout_below="@+id/btt_camboya"
+                android:layout_marginStart="32dp"
+                android:fontFamily="casual"
+                android:text="Camboya"
+                android:textColor="@color/negro" />
 
-    <ImageView
-        android:id="@+id/btt_tailandia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/redthai"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/btt_camboya"
-        android:layout_marginTop="33dp" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView6"
+                android:layout_alignBottom="@+id/textView6"
+                android:layout_alignEnd="@+id/textView4"
+                android:layout_marginEnd="11dp"
+                android:fontFamily="casual"
+                android:text="India"
+                android:textColor="@color/negro" />
 
-    <ImageView
-        android:id="@+id/btt_india"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/redindia"
-        android:layout_alignTop="@+id/btt_tailandia"
-        android:layout_alignStart="@+id/btt_vietnam" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView4"
+                android:layout_below="@+id/btt_srilanka"
+                android:fontFamily="casual"
+                android:text="Sri Lanka"
+                android:textColor="@color/negro" />
 
-    <ImageView
-        android:id="@+id/btt_maldivas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/redmaldivas"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/textView6"
-        android:layout_alignStart="@+id/btt_tailandia" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView5"
+                android:layout_below="@+id/btt_tailandia"
+                android:fontFamily="casual"
+                android:text="Tailandia"
+                android:textColor="@color/negro" />
 
-    <ImageView
-        android:id="@+id/btt_srilanka"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/redsrilanka"
-        android:layout_alignTop="@+id/btt_maldivas"
-        android:layout_alignStart="@+id/btt_india" />
+            <ImageView
+                android:id="@+id/btt_india"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btt_vietnam"
+                android:layout_alignTop="@+id/btt_tailandia"
+                android:src="@drawable/redindia" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Maldivas"
-        android:fontFamily="casual"
-        android:textColor="@color/negro"
-        android:layout_below="@+id/btt_maldivas"
-        android:layout_alignEnd="@+id/textView5" />
+            <ImageView
+                android:id="@+id/btt_vietnam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textView2"
+                android:layout_alignTop="@+id/btt_camboya"
+                android:src="@drawable/redvietnam" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sri Lanka"
-        android:fontFamily="casual"
-        android:textColor="@color/negro"
-        android:id="@+id/textView8"
-        android:layout_below="@+id/btt_srilanka"
-        android:layout_alignStart="@+id/textView4" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="29dp"
+                android:fontFamily="casual"
+                android:text="¿Dónde quieres viajar?"
+                android:textColor="@color/negro"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/btt_vietnam"
+                android:layout_below="@+id/btt_vietnam"
+                android:layout_marginEnd="31dp"
+                android:fontFamily="casual"
+                android:text="Vietnam"
+                android:textColor="@color/negro" />
+
+            <ImageView
+                android:id="@+id/btt_maldivas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btt_tailandia"
+                android:layout_below="@+id/textView6"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/redmaldivas" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/redcamboya"
+                android:layout_marginTop="34dp"
+                android:layout_below="@+id/textView10"
+                android:layout_alignStart="@+id/btt_maldivas"
+                android:id="@+id/imageView6" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/redthai"
+                android:id="@+id/imageView7"
+                android:layout_alignTop="@+id/imageView6"
+                android:layout_alignStart="@+id/btt_srilanka" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/redsrilanka"
+                android:layout_marginTop="31dp"
+                android:layout_below="@+id/imageView6"
+                android:layout_alignStart="@+id/imageView6" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
