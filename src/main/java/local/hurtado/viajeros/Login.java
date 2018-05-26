@@ -1,3 +1,8 @@
+/**
+ * @author Irene Hurtado
+ * @name Viajeros 2.0
+ */
+
 package local.hurtado.viajeros;
 
 import android.content.Intent;

@@ -35,4 +35,8 @@ public class ListaMensajeForo {
             mMensajeForo.add(mensaje);
         }
 
+        public void limpiarListado () {
+            mMensajeForo.clear();
+        }
+
 }

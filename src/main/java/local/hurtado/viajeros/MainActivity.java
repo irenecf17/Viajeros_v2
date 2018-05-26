@@ -1,3 +1,8 @@
+/**
+ * @author Irene Hurtado
+ * @name Viajeros 2.0
+ */
+
 package local.hurtado.viajeros;
 
 import android.database.Cursor;
@@ -24,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase mDataBaseSQLite;
     String nombre, clima, cultura_religion, general, moneda, transporte;
 
-        protected void onCreate(Bundle savedInstanceState) {
+
+    protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             //FacebookSdk.sdkInitialize(getApplicationContext());
             setContentView(R.layout.activity_main);
@@ -80,70 +86,32 @@ public class MainActivity extends AppCompatActivity {
             Contenido contenidoTransporte = new Contenido("Transporte", transporte);
             SingletonContenido.get(getApplicationContext()).getmContenido(getApplicationContext()).add(contenidoTransporte);
 
-            /* Obtención de los datos mediante firebase. Proceso muy lento. Utilizo SQLite de momento
-            con solo los datos de un país.
 
-            mDatabase = FirebaseDatabase.getInstance().getReference("/pais");
-
-            ValueEventListener listener = new ValueEventListener() {
-                String TAG;
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    GenericTypeIndicator<List<pais>> p = new GenericTypeIndicator <List<pais>>() {};
-                    List<pais> camboya =  dataSnapshot.getValue(p);
-
-                    Contenido contenidoInfo = new Contenido("Información general", camboya.get(0).getGeneral());
-                    SingletonContenido.get(getApplicationContext()).getmContenido(getApplicationContext()).add(contenidoInfo);
-
-                    Contenido contenidoClima = new Contenido("Clima", camboya.get(0).getClima());
-                    SingletonContenido.get(getApplicationContext()).getmContenido(getApplicationContext()).add(contenidoClima);
-
-                    Contenido contenidoMoneda = new Contenido("Moneda", camboya.get(0).getMoneda());
-                    SingletonContenido.get(getApplicationContext()).getmContenido(getApplicationContext()).add(contenidoMoneda);
-
-                    Contenido contenidoReligion = new Contenido("Religion", camboya.get(0).getCultura_religion());
-                    SingletonContenido.get(getApplicationContext()).getmContenido(getApplicationContext()).add(contenidoReligion);
-
-                    Contenido contenidoTransporte = new Contenido("Transporte", camboya.get(0).getTransporte());
-                    SingletonContenido.get(getApplicationContext()).getmContenido(getApplicationContext()).add(contenidoTransporte);
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                }
-            };
-
-            mDatabase.addValueEventListener(listener);
-            */
             mDatabase = FirebaseDatabase.getInstance().getReference("/foro/0");
 
-            ValueEventListener listener = new ValueEventListener() {
-                String TAG;
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                ValueEventListener listener = new ValueEventListener() {
+                    String TAG;
 
-                    GenericTypeIndicator<List<MensajeForo>> p = new GenericTypeIndicator <List<MensajeForo>>() {};
-                    List<MensajeForo> foro_camboya =  dataSnapshot.getValue(p);
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    for (int i = 1; i < foro_camboya.size(); i++) {
-                        MensajeForo contenidoTitulo = new MensajeForo(foro_camboya.get(i).getId(), foro_camboya.get(i).getTitulo());
-                        ListaMensajeForo.get(getApplicationContext()).addMensaje(contenidoTitulo);
+                        GenericTypeIndicator<List<MensajeForo>> p = new GenericTypeIndicator <List<MensajeForo>>() {};
+                        List<MensajeForo> foro_camboya =  dataSnapshot.getValue(p);
+
+                        ListaMensajeForo.get(getApplicationContext()).limpiarListado();
+
+                        for (int i = 1; i < foro_camboya.size(); i++) {
+                            MensajeForo contenidoTitulo = new MensajeForo(foro_camboya.get(i).getId(), foro_camboya.get(i).getTitulo());
+                            ListaMensajeForo.get(getApplicationContext()).addMensaje(contenidoTitulo);
+                        }
                     }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                    }
+                };
 
-
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                }
-            };
-
-
-
-            mDatabase.addValueEventListener(listener);
-
-
-
+                mDatabase.addValueEventListener(listener);
 
 
             Fragment fragment = new ListadoActivity();

@@ -18,6 +18,7 @@ public class Foro extends Fragment {
     private RecyclerView.Adapter mAdapter;
     int id;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,7 +32,6 @@ public class Foro extends Fragment {
         List<MensajeForo> mDataSet = ListaMensajeForo.get(getContext()).getmMensajeForo(getContext());
         mAdapter = new MyAdapter(mDataSet);
         mRecyclerView.setAdapter(mAdapter);
-
         return v;
     }
 
